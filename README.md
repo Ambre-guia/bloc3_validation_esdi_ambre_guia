@@ -1,4 +1,4 @@
-# evaluation-librairie
+# evaluation-librairie | Ambre GUIA
 
 **README - Initialisation du Projet en Local**
 
@@ -11,7 +11,7 @@ Bienvenue dans le projet de l'application de gestion de librairie. Suivez ces é
 1. **Cloner le Dépôt :**
    - Utilisez la commande suivante pour cloner le dépôt :
      ```bash
-     git clone https://github.com/Andragogy-FR/evaluation-librairie---Sujet-2
+     git clone https://github.com/Ambre-guia/bloc3_validation_esdi_ambre_guia
      ```
 
 2. **Configuration de la Base de Données :**
