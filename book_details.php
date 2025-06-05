@@ -67,8 +67,8 @@ if (isset($_GET['id'])) {
 
 </div>
 
-    </div>
-</body>
+    </div>    
+    <?php include("footer.php"); ?>
 <script>
     function showDeleteConfirmation(bookId) {
         if (confirm("Êtes-vous sûr de vouloir supprimer ce livre ?")) {

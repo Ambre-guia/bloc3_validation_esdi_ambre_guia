@@ -44,7 +44,4 @@ $error_message = $error_messages[$error_code] ?? "Erreur inconnue";
         <div class="error-message"><?= htmlspecialchars($error_message) ?></div>
         <p>Désolé pour ce désagrément. Veuillez retourner à <a href="index.php">la page d'accueil</a>.</p>
     </div>
-    
-    <?php include("footer.php"); ?>
-</body>
-</html>
+

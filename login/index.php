@@ -108,6 +108,3 @@ $csrf_token = generateCSRFToken();
         </div>
     </div>
     
-    <?php include("../footer.php"); ?>
-</body>
-</html>

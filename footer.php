@@ -1,4 +1,5 @@
-<footer>
+    <!-- Footer -->
+    <footer>
     <div class="container">
         <p>&copy; <?= date("Y"); ?> Librairie XYZ</p>
     </div>

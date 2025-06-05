@@ -143,7 +143,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
-    
-    <?php include("../footer.php"); ?>
-</body>
-</html>
