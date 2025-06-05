@@ -1,3 +1,10 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+require_once(__DIR__ . '/config.php');
+require_once(__DIR__ .  '/login/auth.php');
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -81,38 +88,2128 @@
         <h1>Liste des Livres - Librairie XYZ</h1>
     </header>
 
-    <div class="container">
-        <!-- Affichage des livres depuis la base de données -->
-        <?php
-        require_once('config.php');
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <ul>
+                <?php if (isLoggedIn()) : ?>
+                    <li>Bonjour <?= $_SESSION['prenom']; ?></li>
+                    <?php if (isAdmin()) : ?>
+                        <li><a href="index.php">Accueil</a></li>
+                        <li><a href="admin.php">Administration</a></li>
+                    <?php endif; ?>
+                    <li><a href="login/profile.php">Mon profil</a></li>
+                    <li><a href="login/logout.php">Deconnexion</a></li>
+                <?php else : ?>
+                    <li><a href="login/index.php">Connexion</a></li>
+                    <li><a href="login/register.php">Inscription</a></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
 
-        $query = "SELECT * FROM livres";
-        $stmt = $pdo->query($query);
+        <!-- Page Content -->
+        <div id="content">
+            <div class="container">
+                <!-- Affichage des livres depuis la base de données -->
+                <?php
+                $query = "SELECT * FROM livres";
+                $stmt = $pdo->query($query);
 
-        if ($stmt) {
-            echo "<table>";
-            echo "<tr><th>Image</th><th>Titre</th><th>Auteur</th><th>Date de publication</th><th>Statut</th><th>Détails</th></tr>";
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo "<tr>";
-                echo '<td><img class="book-image" src="' . $row['photo_url'] . '" alt="' . $row['titre'] . '"></td>';
-                echo "<td>{$row['titre']}</td>";
-                echo "<td>{$row['auteur']}</td>";
-                echo "<td>{$row['date_publication']}</td>";
-                echo "<td>{$row['statut']}</td>";
-                echo '<td><a href="book_details.php?id=' . $row['id'] . '">Voir les détails</a></td>';
-                echo "</tr>";
-            }
-            echo "</table>";
-        } else {
-            echo "Erreur lors de la récupération des livres.";
-        }
-        ?>
-  <!-- Bouton "Ajouter un livre" visible uniquement pour les admins -->
-        <?php if ($_SESSION['role'] === 'admin') : ?>
-            <button onclick="window.location.href = 'add_book.php'">Ajouter un livre</button>
-        <?php endif; ?>
-        <button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+                if ($stmt) {
+                    echo "<table>";
+                    echo "<tr><th>Image</th><th>Titre</th><th>Auteur</th><th>Date de publication</th><th>Statut</th><th>Détails</th></tr>";
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>";
+                        echo '<td><img class="book-image" src="' . $row['photo_url'] . '" alt="' . $row['titre'] . '"></td>';
+                        echo "<td>{$row['titre']}</td>";
+                        echo "<td>{$row['auteur']}</td>";
+                        echo "<td>{$row['date_publication']}</td>";
+                        echo "<td>{$row['statut']}</td>";
+                        echo '<td><a href="book_details.php?id=' . $row['id'] . '">Voir les détails</a></td>';
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                } else {
+                    echo "Erreur lors de la récupération des livres.";
+                }
+                ?>
+                <!-- Bouton "Ajouter un livre" visible uniquement pour les admins -->
+                <?php if (isLoggedIn() && isAdmin()) : ?>
+                    <button onclick="window.location.href = 'add_book.php'">Ajouter un livre</button>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
         
     </div>
 </body>
 </html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
+        
+    </div>
+</body>
+</html>
+<button onclick="window.location.href = 'index.php'">Retour à l'accueil</button>
