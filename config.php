@@ -1,8 +1,8 @@
 <?php
 // Configuration des cookies de session
-ini_set('session.cookie_httponly', 1); // Empêche l'accès aux cookies via JavaScript
-ini_set('session.use_only_cookies', 1); // Force l'utilisation des cookies pour les sessions
-ini_set('session.cookie_secure', 1); // Cookies uniquement via HTTPS (à activer en production)
+ini_set('session.cookie_httponly', 1); // Protection aux cookies via JavaScript
+ini_set('session.use_only_cookies', 1); // Force l'utilisation des cookies
+ini_set('session.cookie_secure', 1); // Cookies uniquement via HTTPS 
 ini_set('session.cookie_samesite', 'Strict'); // Protection contre CSRF
 
 // Démarrer ou reprendre la session
