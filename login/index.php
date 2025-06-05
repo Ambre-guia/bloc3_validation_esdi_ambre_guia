@@ -66,6 +66,7 @@ $csrf_token = generateCSRFToken();
     <div class="wrapper">
         <!-- Sidebar -->
         <nav id="sidebar">
+          <img src="../image/logo.png" alt="Logo de la librairie" class="logo">
             <ul>
                 <li><a href="../index.php">Accueil</a></li>
                 <li><a href="index.php">Connexion</a></li>

@@ -110,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="wrapper">
         <!-- Sidebar -->
         <nav id="sidebar">
+            <img src="../image/logo.png" alt="Logo de la librairie" class="logo">
             <ul>
                 <li><a href="../index.php">Accueil</a></li>
                 <li><a href="../books.php">Voir la liste des livres</a></li>

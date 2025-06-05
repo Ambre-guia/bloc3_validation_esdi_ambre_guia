@@ -43,6 +43,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="wrapper">
         <!-- Sidebar -->
         <nav id="sidebar">
+            <img src="./image/logo.png" alt="Logo de la librairie" class="logo">
             <ul>
                 <li>Bonjour <?= $_SESSION['prenom']; ?></li>
                 <li><a href="index.php">Accueil</a></li>

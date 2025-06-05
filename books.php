@@ -89,6 +89,8 @@ require_once(__DIR__ .  '/login/auth.php');
     <div class="wrapper">
         <!-- Sidebar -->
         <nav id="sidebar">
+            
+        <img src="./image/logo.png" alt="Logo de la librairie" class="logo">
             <ul>
                 <?php if (isLoggedIn()) : ?>
                     <li>Bonjour <?= $_SESSION['prenom']; ?></li>
