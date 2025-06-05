@@ -13,4 +13,4 @@ CREATE TABLE `utilisateurs` (
 
 -- Ajout d'un utilisateur admin par défaut (mot de passe: admin123)
 INSERT INTO `utilisateurs` (`nom`, `prenom`, `email`, `mot_de_passe`, `role`) VALUES
-('Admin', 'Admin', 'admin@librairie.com', '$2y$10$qm/Lo9UYK5NlLUQfMgGz5.YkT3q9EGCZrEBl.b3TYv5UbFMZXOE4.', 'admin');
+('Admin', 'Admin', 'admin@librairie.com', '$2y$10$XHExJ.xTvxIGP91E0E9ck.JOuajIH7ZBUq0ioWWDbVPKfK82L3kI2', 'admin');
