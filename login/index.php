@@ -1,5 +1,6 @@
 <?php
 require_once('auth.php');
+require_once('token.php');
 
 $errors = [];
 
@@ -10,31 +11,45 @@ if (isLoggedIn()) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-    
-    // Validation des données
-    if (empty($email)) {
-        $errors[] = "L'email est obligatoire";
-    }
-    
-    if (empty($password)) {
-        $errors[] = "Le mot de passe est obligatoire";
-    }
-    
-    // Si aucune erreur, vérifier les identifiants
-    if (empty($errors)) {
-        $user = loginUser($email, $password);
+    // Vérifier le token CSRF
+    if (!isset($_POST['csrf_token']) || !validateCSRFToken($_POST['csrf_token'])) {
+        $errors[] = "Erreur de sécurité. Veuillez réessayer.";
+    } else {
+        $email = trim($_POST['email'] ?? '');
+        $password = $_POST['password'] ?? '';
         
-        if ($user) {
-            // Rediriger vers la page d'accueil
-            header("Location: ../index.php");
-            exit;
-        } else {
-            $errors[] = "Email ou mot de passe incorrect";
+        // Validation des données
+        if (empty($email)) {
+            $errors[] = "L'email est obligatoire";
+        } elseif (!validateEmail($email)) {
+            $errors[] = "Format d'email invalide";
+        }
+        
+        if (empty($password)) {
+            $errors[] = "Le mot de passe est obligatoire";
+        }
+        
+        // Si aucune erreur, vérifier les identifiants
+        if (empty($errors)) {
+            $user = loginUser($email, $password);
+            
+            if ($user) {
+                // Régénérer l'ID de session après connexion
+                session_regenerate_id(true);
+                // Régénérer le token CSRF
+                regenerateCSRFToken();
+                // Rediriger vers la page d'accueil
+                header("Location: ../index.php");
+                exit;
+            } else {
+                $errors[] = "Email ou mot de passe incorrect";
+            }
         }
     }
 }
+
+// Générer un nouveau token CSRF pour le formulaire
+$csrf_token = generateCSRFToken();
 ?>
 
 <!DOCTYPE html>
@@ -67,16 +82,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="error-message">
                         <ul>
                             <?php foreach ($errors as $error): ?>
-                                <li><?= htmlspecialchars($error) ?></li>
+                                <li><?= cleanInput($error) ?></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
                 <?php endif; ?>
                 
                 <form method="post" action="">
+                    <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                     <div class="form-group">
                         <label for="email">Email :</label>
-                        <input type="email" id="email" name="email" value="<?= htmlspecialchars($email ?? '') ?>" required>
+                        <input type="email" id="email" name="email" value="<?= cleanInput($email ?? '') ?>" required>
                     </div>
                     
                     <div class="form-group">

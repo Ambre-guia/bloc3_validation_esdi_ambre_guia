@@ -1,15 +1,13 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require('config.php');
+require_once('login/token.php');
+
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header('Location: login.php');
+    header('Location: login/index.php');
     exit();
 }
 
@@ -17,44 +15,72 @@ $errors = [];
 $success = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Collectez les données du formulaire
-    $title = $_POST['title'];
-    $author = $_POST['author'];
-    $description = $_POST['description'];
-    $date_publication = $_POST['date_publication'];
-    $isbn = $_POST['isbn'];
-    $coverPath = $_POST['cover'];  // Assurez-vous que la clé correspond au nom du champ de formulaire
+    // Vérifier le token CSRF
+    if (!isset($_POST['csrf_token']) || !validateCSRFToken($_POST['csrf_token'])) {
+        $errors[] = "Erreur de sécurité. Veuillez réessayer.";
+    } else {
+        // Collectez et nettoyez les données du formulaire
+        $title = cleanInput($_POST['title'] ?? '');
+        $author = cleanInput($_POST['author'] ?? '');
+        $description = cleanInput($_POST['description'] ?? '');
+        $date_publication = cleanInput($_POST['date_publication'] ?? '');
+        $isbn = cleanInput($_POST['isbn'] ?? '');
+        $coverPath = cleanInput($_POST['cover'] ?? '');
 
-    // Effectuez des validations (assurez-vous que les données sont correctes)
-    if (empty($title)) {
-        $errors[] = "Le titre du livre est requis.";
-    }
-    if (empty($date_publication)) {
-        $errors[] = "La date de publication est requise.";
-    }
-    if (empty($isbn)) {
-        $errors[] = "ISBN est requis.";
-    }
-    // Ajoutez d'autres validations ici...
+        // Validation des données
+        if (empty($title)) {
+            $errors[] = "Le titre du livre est requis.";
+        }
+        
+        if (empty($author)) {
+            $errors[] = "L'auteur est requis.";
+        }
+        
+        if (empty($date_publication)) {
+            $errors[] = "La date de publication est requise.";
+        } elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date_publication)) {
+            $errors[] = "Format de date invalide. Utilisez le format YYYY-MM-DD.";
+        }
+        
+        if (empty($isbn)) {
+            $errors[] = "ISBN est requis.";
+        } elseif (!preg_match('/^[0-9-]{10,17}$/', $isbn)) {
+            $errors[] = "Format ISBN invalide.";
+        }
+        
+        if (empty($coverPath)) {
+            $errors[] = "L'URL de l'image est requise.";
+        } elseif (!filter_var($coverPath, FILTER_VALIDATE_URL) && !preg_match('/^[\w\/.-]+$/', $coverPath)) {
+            $errors[] = "Format d'URL d'image invalide.";
+        }
 
-    // Si aucune erreur de validation n'est présente
-    if (empty($errors)) {
-        $query = "INSERT INTO livres (titre, auteur, description, date_publication, isbn, photo_url) VALUES (:title, :author, :description, :date_publication, :isbn, :photo_url)";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute(array(
-            ':title' => $title,
-            ':author' => $author,
-            ':description' => $description,
-            ':date_publication' => $date_publication,
-            ':isbn' => $isbn,
-            ':photo_url' => $coverPath,
-        ));
+        // Si aucune erreur de validation n'est présente
+        if (empty($errors)) {
+            try {
+                $query = "INSERT INTO livres (titre, auteur, description, date_publication, isbn, photo_url, statut) VALUES (:title, :author, :description, :date_publication, :isbn, :photo_url, 'disponible')"; 
+                $stmt = $pdo->prepare($query);
+                $stmt->execute([
+                    ':title' => $title,
+                    ':author' => $author,
+                    ':description' => $description,
+                    ':date_publication' => $date_publication,
+                    ':isbn' => $isbn,
+                    ':photo_url' => $coverPath
+                ]);
 
-        // Indiquez que l'ajout du livre a réussi
-        $success = true;
+                // Régénérer le token CSRF
+                regenerateCSRFToken();
+                // Indiquer que l'ajout du livre a réussi
+                $success = true;
+            } catch (PDOException $e) {
+                $errors[] = "Erreur lors de l'ajout du livre : " . $e->getMessage();
+            }
+        }
     }
 }
 
+// Générer un nouveau token CSRF pour le formulaire
+$csrf_token = generateCSRFToken();
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 <header>
-        <img class="logo" src="image/logo.png" alt="Logo Librairie XYZ">
         <h1>Ajouter un livre - Librairie XYZ</h1>
     </header>
 
@@ -73,14 +98,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <button onclick="window.location.href = 'books.php'">Retour à la gestion des livres </button>
     <?php else : ?>
         <?php if (!empty($errors)) : ?>
-            <ul>
-                <?php foreach ($errors as $error) : ?>
-                    <li><?= $error ?></li>
-                <?php endforeach; ?>
-            </ul>
+            <div class="error-message">
+                <ul>
+                    <?php foreach ($errors as $error) : ?>
+                        <li><?= cleanInput($error) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
         <?php endif; ?>
 
         <form method="post">
+            <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
             <label for="cover">URL de l'image :</label>
             <input type="text" name="cover" required>
             <label for="title">Titre :</label>
@@ -98,8 +126,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label for="isbn">ISBN :</label>
             <input type="text" name="isbn" required>
             <br>
-            <button type="submit">Ajouter le Livre</button>
+            <button type="submit">Ajouter le livre</button>
         </form>
+        <button onclick="window.location.href = 'books.php'">Annuler</button>
     <?php endif; ?>
 </body>
 </html>
